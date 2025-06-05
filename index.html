@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitio Educativo Interactivo</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f2f4f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #0055a5;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      background-color: transparent;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background-color: #003f75;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .avatar {
+      width: 200px;
+      border-radius: 50%;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .tarjeta {
+      background: #fff;
+      padding: 15px;
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sitio Educativo Interactivo</h1>
+    <p>Explora tus actividades, perfil y proyectos de Diseño Digital</p>
+  </header>
+
+  <nav>
+    <button class="tab-btn active" onclick="mostrarTab('inicio')">Inicio</button>
+    <button class="tab-btn" onclick="mostrarTab('login')">Login</button>
+    <button class="tab-btn" onclick="mostrarTab('perfil')">Perfil</button>
+    <button class="tab-btn" onclick="mostrarTab('actividades')">Actividades PEC</button>
+    <button class="tab-btn" onclick="mostrarTab('museo')">Museo Virtual</button>
+    <button class="tab-btn" onclick="mostrarTab('video')">Clip de Video</button>
+  </nav>
+
+  <section id="inicio" class="tab-content active">
+    <h2>Bienvenido</h2>
+    <p>Este sitio fue creado para mostrar las principales actividades del estudiante en el área de Diseño Digital.</p>
+    <center><img src="https://th.bing.com/th/id/OIP.RaDB16bQZgkKme9K2VKOOAHaJo?rs=1&pid=ImgDetMain" alt="Banner educativo" style="max-width: 50%; border-radius: 10px;">
+</center> 
+ </section>
+
+  <section id="login" class="tab-content">
+    <h2>Acceso</h2>
+    <form onsubmit="return validarLogin()">
+      <input type="text" id="usuario" placeholder="Usuario" required />
+      <input type="password" id="contrasena" placeholder="Contraseña" required />
+      <button type="submit">Ingresar</button>
+      <p id="mensaje-error" style="color:red;"></p>
+    </form>
+  </section>
+
+  <section id="perfil" class="tab-content">
+    <h2>Perfil del Estudiante</h2>
+    <img src="foto.jpeg"
+ alt="Avatar del estudiante" class="avatar">
+    <p><strong>Nombre:</strong> Luis Angel y Yahir Geovany</p>
+    <p><strong>Carrera:</strong> Diseño Digital</p>
+    <p><strong>Intereses:</strong> UX/UI, Animación, Multimedia Educativa</p>
+  </section>
+
+  <section id="actividades" class="tab-content">
+    <h2>Actividades PEC</h2>
+    <div class="galeria">
+      <div class="tarjeta">
+ <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Tu navegador no soporta video HTML5.
+    </video>
+📘 Video Promocional </div>
+      <div class="tarjeta"><a href="pec.pdf">🧠 PEC Futbol</a></div>
+    </div>
+  </section>
+
+  <section id="museo" class="tab-content">
+    <h2>Museo Virtual</h2>
+    <div class="galeria">
+      <img src="perico.jpg" alt="Obra 1" style="width: 200px; border-radius: 8px;">
+    </div>
+  </section>
+
+  <section id="video" class="tab-content">
+    <h2>Clip de Video – Proyecto Diseño Digital</h2>
+    <p>Este video muestra un recorrido por el proyecto de cierre de semestre en la materia Diseño Digital.</p>
+<img src="https://storage.gra.cloud.ovh.net/v1/AUTH_728ab22ba0c842468a897907be9a7075/flipanim/anim/flz3zihp.gif" >   
+
+  </section>
+
+  <script>
+    function mostrarTab(id) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function validarLogin() {
+      const usuario = document.getElementById("usuario").value;
+      const contrasena = document.getElementById("contrasena").value;
+      const error = document.getElementById("mensaje-error");
+
+      if (usuario === "alumno" && contrasena === "1234") {
+        error.textContent = "¡Login correcto!";
+        return false;
+      } else {
+        error.textContent = "Usuario o contraseña incorrectos.";
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
